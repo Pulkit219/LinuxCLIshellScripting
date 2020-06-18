@@ -4,7 +4,6 @@
 |   |   |
 |---|---|
 | **_MY CUSTOM IN-LINE AND BASH LOOPING AND DAILY USAGE LOG COMMANDS_** |
-|``` cat AUTOROUTE_XDL_SJCH_SSCP.log | grep -i speed | awk '{print $8}' | sed -r 's/(\^|<|\[|\])/ /g' | awk -F ',' '{sum+=$1}END{print "Average = ", sum/NR}' ```   |   testing|
 |find . -type f -name "*.log.gz" -exec zgrep -il 22222222 {} `\`;\| xargs zgrep -il mip|. Means current directory, {} is place holder what for list of files what find command found, (`\`;) is to execute it. Piping it to further filtring list of files with the help of xargs and zgrep|
 |command checkingAcc 323234234 \| grep TEST \| awk '{print $NF}' \| while read i; do psql-xyz -D dbName -c "select paramA, paramB,paramC, paramD from DB.table where paramA='$i'";done|bash looping using while, so first just simply type command and then start action with do...simple as that|
 |find . -type f -name "*.log.gz" -exec zgrep -il "Author name" {} `\`;\|for i in $(xargs);do echo ====$i====;zcat $i\|grep -i "Author name"\|tail -n5;done| looping over filtered list of log files and further zcat over each one of them to find out the lines needed
