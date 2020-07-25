@@ -54,7 +54,9 @@
 | cmp file1 file2|   |
 | **_FILE PERMISSIONS_** |
 | 4read 2write 1execute |    |
-| chmod|   |
+| user u, group g, others o, all a |  read r, write w, execute x, + to add, - to remove, = to set exactly you type  |
+| chmod u=rw, g=r, o=r| defining all the permissions in one line, NOTE equal means setting exactly what we are typing |
+| chmod u=rw, g+x, o-r| continuing from above, for group I want to add execute so we use PLUS |
 | chown ownername:groupname|  change ownership |
 | **_SED COMMAND_** |
 |  sed 's/Kenny/Lenny/g' sometextfile.txt |s for substitute kenny with lenny g- globally   |
@@ -75,6 +77,9 @@
 | ls -ltr | list files with -l means long listing with permissions -t sort according to modification time newer first  -r older files listed at top |
 |ls -ltr /example/directory/\*sales\*.txt   | searching files with name sales , it's a wildcard search  |
 | find /directory/ -iname \*sales\*  | if you're not sure where exactly are these specific files  USE find with wildcard search -i means ignore case sensitivity|
+| ls c`[`aeios`]`t |    look for files that start with c, middle could be any one of those, end with t|
+| ls c`[`a-d`]`t |    look for files that start with c, middle could be any one of those but range, end with t|
+| ls t?? |    list files that start with t and exactly 3 characters in length|
 | locate  | a great command to find if DB is updated, faster than find |
 | ls -al   | list all hidden files with directories  |
 | ls -R  \| grep ./ | It will list all directories, -R is recursively  |
@@ -153,7 +158,7 @@
 | **_LOG MONITORING  <br/>  cd /var/log_**  | Located all types of log files
 |head logfile.txt -n 5   |  displays first 5 lines or by default is 10 without n |
 |tail logfile.txt -n 5   |  displays last 5 lines or by default is 10 without n |
-|tail logfile.txt -f   |  displays last updated ones |
+|tail logfile.txt -f   |  f stands for follow i.e live log streaming |
 |man systemd-journald | system daemon and journal daemon which represents all logs updated recently  |
 |man systemd-journald | system daemon and journal daemon which represents all logs updated recently since all logs goes through journald  |
 | rsyslog.conf  | file in cd /etc , under #rules gives info what log is located in which log file   |
