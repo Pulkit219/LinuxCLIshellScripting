@@ -28,7 +28,9 @@
 | **_REDIRECTIONAL INPUT/OUTPUT_** |
 | cat file1.txt > /home/user/somedirectory/random_file  | > this is redirectional output, contents of file1 will be output to random file  |
 |  echo " some more text" >> /home/user/somedirectory/random_file | appends to random_file file NOT OVERWRITE  |
-| cat file1.txt file 2.txt > concatenated_file  | Merge data of 2 files together in one concatenated_file   |
+| cat file1.txt file2.txt > concatenated_file  | Merge data of 2 files together in one concatenated_file   |
+|> /dev/null| redirect output to nowhere|
+|sort < file.txt | we are throwing file data to sort command |
 | **_SPLITTING FILES_** |
 |  split -l 2 somefile.txt  new|  split 2 lines in one new .txt file |
 | **_COUNTING_** |
@@ -45,6 +47,8 @@
 |tail -f   |  displays last updated ones |
 | **_FILTERS/TEXT PROCESSORS_** |
 | cut -c1-2 somefile.txt  | it will cut fist 2 letters of a word in a file  |
+|grep -i admin /etc/passwd \| cut -d: -f1,5  | it will extract 1st and 5th field using -d delimiter -f field |
+|grep -i admin /etc/passwd \| cut -d: -f1,5\|sort\|tr ":" " " \|column -t | it will extract 1st and 5th, sort it, tr translate/replace, column display in table format  |
 | awk '{print $1'} somefile.txt  | prints first column from a file  |
 | grep someword test.txt | gets the line having that pattern  |
 | sort  |to sort a-z  , -r for reverse sort |
@@ -52,6 +56,8 @@
 | **_COMPARE FILES_** |
 | diff file1.txt file2.txt |    |
 | cmp file1 file2|   |
+| sdiff cmp file1 file2|  shows diff side by side  |
+| vimdiff cmp file1 file2|  shows diff in vim editor |
 | **_FILE PERMISSIONS_** |
 | 4read 2write 1execute |    |
 | user u, group g, others o, all a |  read r, write w, execute x, + to add, - to remove, = to set exactly you type  |
@@ -207,11 +213,19 @@
 | sudo -  | become root user  |
 | sudo passwd user  |  set password for user |
 | sudo passwd root  |  set password for root first |
-| useradd newUser  | will create a new user and also a group with same name |
-| userdel newUser  | deletes an user|
-|  groupadd  newGroup| will create a new group  |
-|  groupadd  newGroup| deletes a group  |
+| /etc/passwd  | it stores all uder related info |
+| useradd username  | will create a new user and also a group with same name |
+| useradd -c "full name" -m -g defaultgroupname -G additionalGroupName,Anothergroup -s /bin/bash usrname  | creating user with parameters -m home directory -s shell |
+| passwd username  | creating password for that user|
 |  usermod -G newGroup username| it will add that user to newgroup along with primary group remains the same.   |
+| userdel username  | deletes an user|
+|**Creating System/application account**||
+| useradd -c "Apache web server" -d /opt/apache -rOR-u(to assign sameUid over diff systems) -s /user/sbin/nologin usrname  | creating app acct with parameters -r to specify it's system acct -d specifically defining directory -s disabling shell because it's not an user |
+| groupadd  groupname| will create a new group|
+| tail /etc/group| in etc -group are where group info are located |
+|  groups  username| shows all the groups , user is a part of  |
+| groupdel  groupname| will delete a group|
+| groupmod  groupname| will modify a group|
 | chgrp -R groupName username| chnage primary group of an  user , -r means recursively apply  |
 | useradd -g someGroup -s /bin/bash/ -c "desc" -m -d /home/username username | it will add user to a group with desc   |
 | su -username  | switch user   |
