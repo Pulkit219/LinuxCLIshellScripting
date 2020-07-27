@@ -160,6 +160,7 @@
 |jobs -l   | it will  list all background running jobs   |
 | CTRL +Z  |sleep 100, sleeping 100 secs and then ctrl +z to stop and then press bg it in bg   |
 | bg fg  |background foreground   |
+|fg %3   | it will bring the 3rd job then you can stop it by CTRL+Z or terminate by CTRL+C   |
 |  nice -19 to 20 | higher to lower priority |
 | **_LOG MONITORING  <br/>  cd /var/log_**  | Located all types of log files
 |head logfile.txt -n 5   |  displays first 5 lines or by default is 10 without n |
@@ -207,20 +208,43 @@
 | partprobe| whenever we delete/ add a partition, it reloads partition info just in case if kernel is not able to do it, kind of refresh button |
 | du -skh * \| sort -nr \| head -5 | lists only top 5 files  |
 | **GPT partition**|  modern partitioning scheme which can have many partitions upto 128|
+|fuser -cu /mountedDirectory |to see if an user is using that filesystem|
+|lsblk -p | to see the hd devices with their partitions|
+|fdisk -l | to see the hd devices with their partitions|
+|gdisk or fdisk pr parted /dev/xda(hd name)| we can use any of those tools to start partitioning|
 | gdisk /dev/xvdf | we will create or manage partitions|
-| mkfs -t xfs partitionName(for eg. xvdf1)| it formats the partition with file format (file systems-vfat, ext4, and xfs) |
+| mkfs -t xfs partitionName(for eg. xvdf1)| it formats the partition with file format (file systems ext3, ext4, xfs etc.) |
+|mount /dev/sda1(partition name) /mnt/mymomunt(path you want to mount at) | create a mount directory or use an existing one and then mount it|
+|mount -U deviceuuid|mounting using UUID- safe practice|
+|umount /mnt/mymomunt(path)| to unmount|
+|/etc/fstab| making an entry so that changes stay permanent |
+|mount -a|once we have an entry in fstab, it will mount all of them in one shot|
+| partprobe| whenever we delete/ add a partition, it reloads partition info just in case if kernel is not able to do it, kind of refresh button |
+|**delete a partition**||
+|umount| of course unmount it first|
+|gdisk /dev/xvda(device name not partition name)| follow the options and delete it|
+| **lvm**| logical volume manager flexbile for adding/removing space wihthout shutting the system |
+|pvcreate /dev/sdb| 1st step is to pvcreat, physical volume|
+|pvs| to verify phsical volume|
+|vgcreate test_vg /dev/sdb||
+|vgs| to verify volume group|
+|lvcreate -n example_lv -L 50M/G volumeGroupName||
+|lvs||
+|mkfs.fileSystemType /dev/vg/lvName||
+|**swap**||
+|||
 | **_USER ACCOUNT MANAGEMENT_**  |
 | sudo -  | become root user  |
 | sudo passwd user  |  set password for user |
 | sudo passwd root  |  set password for root first |
-| /etc/passwd  | it stores all uder related info |
-| useradd username  | will create a new user and also a group with same name |
+| /etc/passwd  | it stores all user related info |
+| useradd newusrname  | will create a new user and also a group with same name |
 | useradd -c "full name" -m -g defaultgroupname -G additionalGroupName,Anothergroup -s /bin/bash usrname  | creating user with parameters -m home directory -s shell |
 | passwd username  | creating password for that user|
 |  usermod -G newGroup username| it will add that user to newgroup along with primary group remains the same.   |
 | userdel username  | deletes an user|
 |**Creating System/application account**||
-| useradd -c "Apache web server" -d /opt/apache -rOR-u(to assign sameUid over diff systems) -s /user/sbin/nologin usrname  | creating app acct with parameters -r to specify it's system acct -d specifically defining directory -s disabling shell because it's not an user |
+| useradd -c "Apache web server" -d /opt/apache -rOR-u(to assign sameUid over diff systems) -s /user/sbin/nologin newusrname  | creating app acct with parameters -r to specify it's system acct -d specifically defining directory -s disabling shell because it's not an user |
 | groupadd  groupname| will create a new group|
 | tail /etc/group| in etc -group are where group info are located |
 |  groups  username| shows all the groups , user is a part of  |
@@ -235,6 +259,11 @@
 |w  |  number of users logged in  , uptime, load average 0.03 (past 1 min), 0.07 (past 5 min) ,0.06(past 15min) |
 |finger  | traces an user idle time, since when loggen in   |
 |uptime  |  gives machine uptime |
+| **_NETWORK TOOLS_**  |
+|ifconfig||
+|ip addr|shows your ip address|
+|/etc/hosts|if this file has DNS entries so it will have higher precedence because system will it first before it queries DNS server|
+|/etc/ports| gives list of pre-defined ports and as well we can add our own|
 | **_TALK TO USERS TO BROADCAST IMPORTANT INFO_**  |
 |wall   |  your message and then ctrl +D  |
 |write user   |  to specific user |
