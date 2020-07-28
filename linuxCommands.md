@@ -260,9 +260,22 @@
 |finger  | traces an user idle time, since when loggen in   |
 |uptime  |  gives machine uptime |
 | **_NETWORK TOOLS_**  |
-|ifconfig||
+|ifconfig| has been deprecated|
 |ip addr|shows your ip address|
+|ip addr show eth0||
+|ping||
+|traceroute||
+|ss -atn|list all active tcp connections an port num# -n num -t tcp|
+|ip -s link show eth0| show traffic details on that ethernet port|
+|ls /sys/class/net|list network devices|
+|nmcli dev status| nm is network manager device|
+|||
+|||
+|||
+|||
+|||
 |/etc/hosts|if this file has DNS entries so it will have higher precedence because system will it first before it queries DNS server|
+|vim /etc/nsswitch.conf|to change priority with host file(look internally) or DNS(external server) |
 |/etc/ports| gives list of pre-defined ports and as well we can add our own|
 | **_TALK TO USERS TO BROADCAST IMPORTANT INFO_**  |
 |wall   |  your message and then ctrl +D  |
